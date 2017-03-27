@@ -18,7 +18,7 @@ void setup() {
   size(640, 360);
   reset();
   // Create liquid object
-  liquid = new Liquid(0, height/2, width, height/2, 0.1);
+  liquid = new Liquid(0, 0, width, height, 0.01);
 }
 
 void draw() {
@@ -35,12 +35,21 @@ void draw() {
       PVector dragForce = liquid.drag(movers[i]);
       // Apply drag force to Mover
       movers[i].applyForce(dragForce);
+      
     }
 
     // Gravity is scaled by mass here!
     PVector gravity = new PVector(0, 0.1*movers[i].mass);
+    PVector wind = new PVector(0.1, 0);
+    float speed = movers[i].velocity.mag();
+    float area = movers[i].getArea();   
+    speed *= -0.05;  //임의의 상수, 중력 반대방향
+    PVector inducedLift = new PVector(0, speed*movers[i].mass);
+    inducedLift.limit(0.2);
     // Apply gravity
+    movers[i].applyForce(wind);
     movers[i].applyForce(gravity);
+    movers[i].applyForce(inducedLift);
 
     // Update and display
     movers[i].update();
@@ -59,6 +68,6 @@ void mousePressed() {
 // Restart all the Mover objects randomly
 void reset() {
   for (int i = 0; i < movers.length; i++) {
-    movers[i] = new Mover(random(0.5, 3), 40+i*70, 0);
+    movers[i] = new Mover(random(0.5, 3), 0, height-50);
   }
 }

@@ -44,7 +44,7 @@ class Liquid {
 
   void display() {
     noStroke();
-    fill(50);
+    fill(166,200,230);
     rect(x, y, w, h);
   }
 }
