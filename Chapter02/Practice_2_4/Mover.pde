@@ -11,16 +11,12 @@ class Mover {
 
   // Mass is tied to size
   float mass;
-  float rectWidth;
-  float angle;
 
-  Mover(float x, float y, float m, float rad) {
+  Mover(float m, float x, float y) {
     mass = m;
-    rectWidth = mass*16;
     position = new PVector(x, y);
     velocity = new PVector(0, 0);
     acceleration = new PVector(0, 0);
-    angle = rad;
   }
 
   // Newton's 2nd law: F = M * A
@@ -47,13 +43,7 @@ class Mover {
     stroke(0);
     strokeWeight(2);
     fill(127, 200);
-    rectMode(CENTER);
-    //ellipse(position.x, position.y, mass*16, mass*16);
-    pushMatrix();
-    translate(position.x, position.y);
-    rotate(angle);
-    rect(-rectWidth/2,-rectWidth/2,rectWidth,10);
-    popMatrix();
+    ellipse(position.x, position.y, mass*16, mass*16);
   }
 
   // Bounce off bottom of window
@@ -62,10 +52,5 @@ class Mover {
       velocity.y *= -0.9;  // A little dampening when hitting the bottom
       position.y = height;
     }
-  }
-    // Get Area
-  float getAngle()
-  {
-    return angle;
   }
 }

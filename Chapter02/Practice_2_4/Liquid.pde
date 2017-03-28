@@ -41,27 +41,10 @@ class Liquid {
     dragForce.mult(dragMagnitude);
     return dragForce;
   }
-  
-  // Calculate lift force
-  PVector lift(Mover m) {
-    // Magnitude is coefficient * speed squared
-    float speed = m.velocity.mag();
-    float liftMagnitude = c * speed * speed;
 
-    // Direction is inverse of velocity
-    PVector liftForce = m.velocity.get();
-    liftForce.rotate(radians(90));
-
-    // Scale according to magnitude
-    liftForce.normalize();
-    liftForce.mult(liftMagnitude);
-    return liftForce;
-  }
-
-  void display() {
+  void display(int value) {
     noStroke();
-    rectMode(CORNER);
-    fill(166,200,230);
+    fill(value);
     rect(x, y, w, h);
   }
 }
